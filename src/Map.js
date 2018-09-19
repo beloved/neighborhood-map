@@ -2,7 +2,7 @@ import React from "react"
 import { compose, withProps, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 
-// const locations = this.props.locations;
+
 const MyMapComponent = compose(
     withStateHandlers(() => ({
         isOpen: false,
@@ -20,29 +20,28 @@ const MyMapComponent = compose(
     withScriptjs,
     withGoogleMap
 )((props) =>
-    <GoogleMap locations ="this.props.locations"
-        defaultZoom={10}
+    <GoogleMap
+        defaultZoom={11}
         defaultCenter={{ lat: 36.8007, lng: -121.9473 }}
     >
-        <Marker position={{lat: 36.8007, lng: -121.9473}} onClick={props.onToggleOpen}>
-            {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-                <div>Hi</div>
-            </InfoWindow>}
-        </Marker>
-        {/*{locations.forEach((location) =>*/}
-             {/*<Marker position={`${location.venue.location.lat}, ${location.venue.location.lng} `} onClick={props.onToggleOpen}>*/}
-                     {/*{props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>*/}
-                        {/*<div>Hi</div>*/}
-                     {/*</InfoWindow>}*/}
-             {/*</Marker>*/}
-            {/*)}*/}
+        {props.locations.map(location => (
+             <Marker key = {location.venue.id} position={{lat:location.venue.location.lat, lng:location.venue.location.lng}} onClick={props.onToggleOpen}>
+                     {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
+                        <div>{location.venue.name}</div>
+
+                     </InfoWindow>}
+             </Marker>
+            ))}
     </GoogleMap>
 )
 
 class Map extends React.PureComponent {
+
     render() {
+        let locations =  this.props.locations;
+        console.log(locations);
         return (
-            <MyMapComponent locations ="this.props.locations"/>
+            <MyMapComponent locations = {locations}/>
         )
     }
 }
