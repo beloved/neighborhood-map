@@ -27,8 +27,10 @@ const MyMapComponent = compose(
         {props.locations.map(location => (
              <Marker key = {location.venue.id} position={{lat:location.venue.location.lat, lng:location.venue.location.lng}} onClick={props.onToggleOpen}>
                      {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-                        <div>{location.venue.name}</div>
-
+                       <div>
+                           <div>{location.venue.name}</div>
+                         <div>{location.venue.location.formattedAddress}</div>
+                       </div>
                      </InfoWindow>}
              </Marker>
             ))}
@@ -38,7 +40,7 @@ const MyMapComponent = compose(
 class Map extends React.PureComponent {
 
     render() {
-        let locations =  this.props.locations;
+        let locations = this.props.locations;
         console.log(locations);
         return (
             <MyMapComponent locations = {locations}/>
