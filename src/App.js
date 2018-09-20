@@ -50,7 +50,7 @@ class App extends Component {
                         </ul>
                     </div>
                     <div className='map'>
-                        <Map locations = {this.state.locations}/>
+                        <Map locations = {this.state.locations} filteredLocations = {this.state.filteredLocations}/>
                     </div>
                 </div>
                 <footer >

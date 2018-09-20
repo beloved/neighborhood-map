@@ -41,9 +41,10 @@ class Map extends React.PureComponent {
 
     render() {
         let locations = this.props.locations;
+        let filteredLocations = this.props.filteredLocations;
         console.log(locations);
         return (
-            <MyMapComponent locations = {locations}/>
+            <MyMapComponent locations = {filteredLocations} />
         )
     }
 }
