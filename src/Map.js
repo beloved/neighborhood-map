@@ -26,8 +26,9 @@ const MyMapComponent = compose(
     >
         {props.locations.map(location => (
              <Marker key = {location.venue.id} position={{lat:location.venue.location.lat, lng:location.venue.location.lng}} onClick={props.onToggleOpen}>
-                 {props.selectedLocation && props.selectedLocation.venue.id === location.venue.id &&
-                 props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
+                 {/*{props.isOpen */}
+                 {props.selectedLocation && props.selectedLocation.venue.name === location.venue.name
+                 && <InfoWindow onCloseClick={props.onToggleOpen}>
                        <div>
                            <div>{location.venue.name}</div>
                          <div>{location.venue.location.formattedAddress}</div>
@@ -44,6 +45,7 @@ class Map extends React.PureComponent {
         //let locations = this.props.locations;
         let filteredLocations = this.props.filteredLocations;
         let selectedLocation = this.props.selectedLocation;
+        console.log(selectedLocation)
         return (
             <MyMapComponent locations = {filteredLocations} selectedLocation = {selectedLocation}/>
         )

@@ -7,7 +7,7 @@ class App extends Component {
     state = {
         locations: [],
         filteredLocations: [],
-        selectedLocation: null
+        selectedLocation: '',
     }
     componentDidMount () {
         fetch('https://api.foursquare.com/v2/venues/explore?client_id=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI&client_secret=IMSCQAMPN2GCESSZVPSOO42Q0EL0UKIZ35KCS0N3D35U5IL3&v=20180323&limit=10&ll=36.8007,-121.9473&query=whale watch')
@@ -28,10 +28,12 @@ class App extends Component {
             this.setState({filteredLocations: this.state.locations})
         }
     }
-    showInfo = (event, id) => {
-        let info = this.state.filteredLocations.find(location => location.venue.id === id);
-        this.setState({selectedLocation: info});
+    showInfo = (event, name) => {
+        let info = this.state.filteredLocations.find(location => location.venue.name === name);
+        this.setState({selectedLocation: info.venue.name });
+        console.log (this.state.selectedLocation);
     }
+
     render() {
         return (
             <div className="App">
@@ -50,7 +52,7 @@ class App extends Component {
                         {/*Listview Component*/}
                         <ul>
                             {this.state.filteredLocations.map((location) =>
-                                <li key = {location.venue.id} onClick = {event => this.showInfo (event, location.venue.id)}>{location.venue.name}</li>
+                                <li key = {location.venue.id} onClick = {event => this.showInfo (event, location.venue.name)}>{location.venue.name}</li>
                             )}
                         </ul>
                     </div>
