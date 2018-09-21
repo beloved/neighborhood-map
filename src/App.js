@@ -6,10 +6,11 @@ class App extends Component {
 
     state = {
         locations: [],
-        filteredLocations: []
+        filteredLocations: [],
+        selectedLocation: null
     }
     componentDidMount () {
-        fetch('https://api.foursquare.com/v2/venues/explore?client_id=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI&client_secret=IMSCQAMPN2GCESSZVPSOO42Q0EL0UKIZ35KCS0N3D35U5IL3&v=20180323&limit=10&ll=36.8524545,-121.4016021&query=whale watching')
+        fetch('https://api.foursquare.com/v2/venues/explore?client_id=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI&client_secret=IMSCQAMPN2GCESSZVPSOO42Q0EL0UKIZ35KCS0N3D35U5IL3&v=20180323&limit=10&ll=36.8007,-121.9473&query=whale watch')
             .then(res => res.json())
             .then(data => {
                 this.setState({locations: data.response.groups[0].items})
@@ -27,8 +28,10 @@ class App extends Component {
             this.setState({filteredLocations: this.state.locations})
         }
     }
-
-
+    showInfo = (event, id) => {
+        let info = this.state.filteredLocations.find(location => location.venue.id === id);
+        this.setState({selectedLocation: info});
+    }
     render() {
         return (
             <div className="App">
@@ -47,12 +50,12 @@ class App extends Component {
                         {/*Listview Component*/}
                         <ul>
                             {this.state.filteredLocations.map((location) =>
-                                <li key = {location.venue.id}>{location.venue.name}</li>
+                                <li key = {location.venue.id} onClick = {event => this.showInfo (event, location.venue.id)}>{location.venue.name}</li>
                             )}
                         </ul>
                     </div>
                     <div className='map'>
-                        <Map locations = {this.state.locations} filteredLocations = {this.state.filteredLocations}/>
+                        <Map locations = {this.state.locations} filteredLocations = {this.state.filteredLocations} selectedLocation = {this.state.selectedLocation}/>
                     </div>
                 </div>
                 <footer >

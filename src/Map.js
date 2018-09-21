@@ -21,12 +21,13 @@ const MyMapComponent = compose(
     withGoogleMap
 )((props) =>
     <GoogleMap
-        defaultZoom={11}
+        defaultZoom={10}
         defaultCenter={{ lat: 36.8007, lng: -121.9473 }}
     >
         {props.locations.map(location => (
              <Marker key = {location.venue.id} position={{lat:location.venue.location.lat, lng:location.venue.location.lng}} onClick={props.onToggleOpen}>
-                     {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
+                 {props.selectedLocation && props.selectedLocation.venue.id === location.venue.id &&
+                 props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
                        <div>
                            <div>{location.venue.name}</div>
                          <div>{location.venue.location.formattedAddress}</div>
@@ -42,8 +43,9 @@ class Map extends React.PureComponent {
     render() {
         //let locations = this.props.locations;
         let filteredLocations = this.props.filteredLocations;
+        let selectedLocation = this.props.selectedLocation;
         return (
-            <MyMapComponent locations = {filteredLocations} />
+            <MyMapComponent locations = {filteredLocations} selectedLocation = {selectedLocation}/>
         )
     }
 }
