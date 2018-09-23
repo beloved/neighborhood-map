@@ -10,7 +10,7 @@ class App extends Component {
         selectedLocation: '',
     }
     componentDidMount () {
-        fetch('https://api.foursquare.com/v2/venues/explore?client_id=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI&client_secret=IMSCQAMPN2GCESSZVPSOO42Q0EL0UKIZ35KCS0N3D35U5IL3&v=20180323&limit=10&ll=36.8007,-121.9473&query=whale watch')
+        fetch('https://api.foursquare.com/v2/venues/explore?client_id=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI&client_secret=IMSCQAMPN2GCESSZVPSOO42Q0EL0UKIZ35KCS0N3D35U5IL3&v=20180323&limit=8&ll=36.8007,-121.9473&query=whale watch')
             .then(res => res.json())
             .then(data => {
                 this.setState({locations: data.response.groups[0].items})

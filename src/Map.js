@@ -24,18 +24,30 @@ const MyMapComponent = compose(
         defaultZoom={10}
         defaultCenter={{ lat: 36.8007, lng: -121.9473 }}
     >
-        {props.locations.map(location => (
-             <Marker key = {location.venue.id} position={{lat:location.venue.location.lat, lng:location.venue.location.lng}} name= {location.venue.name} onClick={props.onToggleOpen}>
-
-                 {/*{props.selectedLocation && props.selectedLocation.venue.name === location.venue.name*/}
-                {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-                       <div>
-                           <div>{location.venue.name}</div>
-                         <div>{location.venue.location.formattedAddress}</div>
-                       </div>
-                     </InfoWindow>}
-             </Marker>
-            ))}
+        {props.selectedLocation ? props.locations.filter(location =>
+            location.venue.name === props.selectedLocation).map(location => (
+                <Marker key={location.venue.id}
+                        position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
+                        name={location.venue.name} onClick={props.onToggleOpen}>
+                    <InfoWindow onCloseClick={props.onToggleOpen}>
+                        <div>
+                            <div>{location.venue.name}</div>
+                            <div>{location.venue.location.formattedAddress}</div>
+                        </div>
+                    </InfoWindow>}
+                </Marker>))
+            : props.locations.map(location => (
+                <Marker key={location.venue.id}
+                        position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
+                        name={location.venue.name} onClick={props.onToggleOpen}>
+                    {props.isOpen &&  <InfoWindow onCloseClick={props.onToggleOpen}>
+                        <div>
+                            <div>{location.venue.name}</div>
+                            <div>{location.venue.location.formattedAddress}</div>
+                        </div>
+                    </InfoWindow>}
+                </Marker>))
+        }
     </GoogleMap>
 )
 
