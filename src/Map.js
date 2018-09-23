@@ -60,7 +60,6 @@ class Map extends React.PureComponent {
         //let locations = this.props.locations;
         let filteredLocations = this.props.filteredLocations;
         let selectedLocation = this.props.selectedLocation;
-        console.log(selectedLocation)
         return (
             <MyMapComponent locations = {filteredLocations} selectedLocation = {selectedLocation}/>
         )

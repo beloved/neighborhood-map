@@ -20,15 +20,12 @@ class App extends Component {
     }
 
     filterLocation = (e)  => {
-        console.log(e);
+        this.setState({selectedLocation: '' });
         if (e === 'All') {
             this.setState({filteredLocations: this.state.locations});
-            this.setState({selectedLocation: '' });
         } else {
             let filteredLocations = this.state.locations.filter(location => location.venue.location.city === e);
             this.setState({filteredLocations: filteredLocations});
-            console.log(this.state.filteredLocations);
-            this.setState({selectedLocation: '' });
         }
     }
     showInfo = (event, name) => {
