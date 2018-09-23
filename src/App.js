@@ -31,7 +31,6 @@ class App extends Component {
     showInfo = (event, name) => {
         let info = this.state.filteredLocations.find(location => location.venue.name === name);
         this.setState({selectedLocation: info.venue.name });
-        console.log (this.state.selectedLocation);
     }
 
     render() {
