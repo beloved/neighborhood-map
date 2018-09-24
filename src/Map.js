@@ -1,11 +1,14 @@
 import React from "react"
 import { compose, withProps, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
+import './App.css'
+
 
 
 const MyMapComponent = compose(
     withStateHandlers(() => ({
         isOpen: false,
+
     }), {
         onToggleOpen: ({ isOpen }) => () => ({
             isOpen: !isOpen,
@@ -27,9 +30,9 @@ const MyMapComponent = compose(
         {/*Lines 28-40 created with assistance from slack peer, Forrest(FEND) */}
         {props.selectedLocation ? props.locations.filter(location =>
             location.venue.name === props.selectedLocation).map(location => (
-                <Marker key={location.venue.id}
+                <Marker key={location.venue.id} animation={1} //https://stackoverflow.com/questions/45887099/react-google-maps-marker-animation
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
-                        name={location.venue.name} onClick={props.onToggleOpen}>
+                        onClick={props.onToggleOpen}>
                     {/*{props.isOpen &&*/}
                     <InfoWindow onCloseClick={props.onToggleOpen}>
                         <div>
@@ -42,7 +45,7 @@ const MyMapComponent = compose(
             : props.locations.map(location => (
                 <Marker key={location.venue.id}
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
-                        name={location.venue.name} onClick={props.onToggleOpen}>
+                        onClick={props.onToggleOpen}>
                     {props.isOpen &&  <InfoWindow onCloseClick={props.onToggleOpen}>
                         <div>
                             <div>{location.venue.name}</div>
