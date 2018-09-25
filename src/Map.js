@@ -6,12 +6,14 @@ import './App.css'
 
 
 const MyMapComponent = compose(
+    //Lines 12-17 created with assistance from code example here https://github.com/tomchentw/react-google-maps/issues/753
     withStateHandlers(() => ({
         isOpen: false,
-
+        infoId: null
     }), {
-        onToggleOpen: ({ isOpen }) => () => ({
-            isOpen: !isOpen,
+        onToggleOpen: ({ isOpen, infoId }) => (id) => ({
+            isOpen: infoId !== id || !isOpen,
+            infoId: id
         })
     }),
     withProps({
@@ -32,7 +34,7 @@ const MyMapComponent = compose(
             location.venue.name === props.selectedLocation).map(location => (
                 <Marker key={location.venue.id} animation={1} //https://stackoverflow.com/questions/45887099/react-google-maps-marker-animation
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
-                        onClick={props.onToggleOpen}>
+                        onClick={() => props.onToggleOpen(location.venue.id)}>
                     {/*{props.isOpen &&*/}
                     <InfoWindow onCloseClick={props.onToggleOpen}>
                         <div>
@@ -45,8 +47,8 @@ const MyMapComponent = compose(
             : props.locations.map(location => (
                 <Marker key={location.venue.id}
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
-                        onClick={props.onToggleOpen}>
-                    {props.isOpen &&  <InfoWindow onCloseClick={props.onToggleOpen}>
+                        onClick={() => props.onToggleOpen(location.venue.id)}>
+                    {(props.isOpen && props.infoId === location.venue.id) && <InfoWindow onCloseClick={props.onToggleOpen}>
                         <div>
                             <div>{location.venue.name}</div>
                             <div>{location.venue.location.formattedAddress}</div>
