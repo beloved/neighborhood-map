@@ -9,11 +9,11 @@ const MyMapComponent = compose(
     //Lines 12-17 created with assistance from code example here https://github.com/tomchentw/react-google-maps/issues/753
     withStateHandlers(() => ({
         isOpen: false,
-        infoId: null
+        infoId: null,
     }), {
-        onToggleOpen: ({ isOpen, infoId }) => (id) => ({
+        onToggleOpen: ({ isOpen, infoId}) => (id) => ({
             isOpen: infoId !== id || !isOpen,
-            infoId: id
+            infoId: id,
         })
     }),
     withProps({
@@ -27,12 +27,13 @@ const MyMapComponent = compose(
 )((props) =>
     <GoogleMap
         defaultZoom={10}
-        defaultCenter={{ lat: 36.8007, lng: -121.9473 }}
+        center={ props.mapCenter }
+        // defaultCenter={{ lat: 36.8007, lng: -121.9473 }}
     >
         {/*Lines 28-40 created with assistance from slack peer, Forrest(FEND) */}
         {props.selectedLocation ? props.locations.filter(location =>
             location.venue.name === props.selectedLocation).map(location => (
-                <Marker key={location.venue.id} animation={1} //https://stackoverflow.com/questions/45887099/react-google-maps-marker-animation
+                <Marker key={location.venue.id} animation={2} //https://stackoverflow.com/questions/45887099/react-google-maps-marker-animation
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
                         onClick={() => props.onToggleOpen(location.venue.id)}>
                     {/*{props.isOpen &&*/}
@@ -63,10 +64,12 @@ class Map extends React.PureComponent {
 
     render() {
         //let locations = this.props.locations;
+        let mapCenter = this.props.mapCenter;
+        console.log(mapCenter);
         let filteredLocations = this.props.filteredLocations;
         let selectedLocation = this.props.selectedLocation;
         return (
-            <MyMapComponent locations = {filteredLocations} selectedLocation = {selectedLocation}/>
+            <MyMapComponent mapCenter = {mapCenter} locations = {filteredLocations} selectedLocation = {selectedLocation} />
         )
     }
 }
