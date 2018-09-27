@@ -2,6 +2,7 @@ import React from "react"
 import { compose, withProps, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
 import './App.css'
+import './powered-by-foursquare-blue.png'
 
 
 
@@ -19,7 +20,7 @@ const MyMapComponent = compose(
     withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `100vh` }} />,
+        containerElement: <div style={{ height: `100%` }} />,
         mapElement: <div style={{ height: `100%` }} />,
     }),
     withScriptjs,
@@ -28,19 +29,23 @@ const MyMapComponent = compose(
     <GoogleMap
         defaultZoom={10}
         center={ props.mapCenter }
-        // defaultCenter={{ lat: 36.8007, lng: -121.9473 }}
     >
         {/*Lines 28-40 created with assistance from slack peer, Forrest(FEND) */}
         {props.selectedLocation ? props.locations.filter(location =>
             location.venue.name === props.selectedLocation).map(location => (
-                <Marker key={location.venue.id} animation={2} //https://stackoverflow.com/questions/45887099/react-google-maps-marker-animation
+                <Marker key={location.venue.id}
+                        animation={2} //https://stackoverflow.com/questions/45887099/react-google-maps-marker-animation
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
                         onClick={() => props.onToggleOpen(location.venue.id)}>
                     {/*{props.isOpen &&*/}
                     <InfoWindow onCloseClick={props.onToggleOpen}>
                         <div>
-                            <div>{location.venue.name}</div>
-                            <div>{location.venue.location.formattedAddress}</div>
+                            <div className='location-title'>{location.venue.name}</div>
+                            <address>{location.venue.location.formattedAddress}</address>
+                            <img src='powered-by-foursquare-blue.png' alt='Powered By FourSquare'/>
+                            <a href={`https://foursquare.com/v/${location.venue.id}?ref=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI`}>
+
+                            </a>
                         </div>
                     </InfoWindow>
                     {/*}*/}
@@ -49,10 +54,14 @@ const MyMapComponent = compose(
                 <Marker key={location.venue.id}
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
                         onClick={() => props.onToggleOpen(location.venue.id)}>
-                    {(props.isOpen && props.infoId === location.venue.id) && <InfoWindow onCloseClick={props.onToggleOpen}>
+                    {(props.isOpen && props.infoId === location.venue.id) &&
+                    <InfoWindow onCloseClick={props.onToggleOpen}>
                         <div>
-                            <div>{location.venue.name}</div>
-                            <div>{location.venue.location.formattedAddress}</div>
+                            <div className='location-title'>{location.venue.name}</div>
+                            <address>{location.venue.location.formattedAddress}</address>
+                            <a href={`https://foursquare.com/v/${location.venue.id}?ref=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI`}>
+                                <img src='powered-by-foursquare-blue.png' alt='Powered By FourSquare'/>
+                            </a>
                         </div>
                     </InfoWindow>}
                 </Marker>))
@@ -65,11 +74,14 @@ class Map extends React.PureComponent {
     render() {
         //let locations = this.props.locations;
         let mapCenter = this.props.mapCenter;
-        console.log(mapCenter);
         let filteredLocations = this.props.filteredLocations;
         let selectedLocation = this.props.selectedLocation;
         return (
-            <MyMapComponent mapCenter = {mapCenter} locations = {filteredLocations} selectedLocation = {selectedLocation} />
+            <MyMapComponent
+                mapCenter = {mapCenter}
+                locations = {filteredLocations}
+                selectedLocation = {selectedLocation}
+            />
         )
     }
 }
