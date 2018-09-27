@@ -46,6 +46,8 @@ class App extends Component {
         this.setState({selectedLocation: info.venue.name });
     }
 
+    mapError = () => alert(`Google maps is loading, click okay and try again.`);
+
     render() {
         return (
             <div className="App">
@@ -87,6 +89,7 @@ class App extends Component {
                             locations = {this.state.locations}
                             filteredLocations = {this.state.filteredLocations}
                             selectedLocation = {this.state.selectedLocation}
+                            mapError = {this.mapError}
                         />
                     </div>
                 </div>

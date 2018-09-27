@@ -16,7 +16,7 @@ const MyMapComponent = compose(
         })
     }),
     withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
+        googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places%26 onerror=\"mapError()",
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div style={{ height: `100%` }} />,
         mapElement: <div style={{ height: `100%` }} />,
@@ -75,6 +75,7 @@ class Map extends React.PureComponent {
                 mapCenter = {mapCenter}
                 locations = {filteredLocations}
                 selectedLocation = {selectedLocation}
+                mapError = {this.props.mapError()}
             />
         )
     }
