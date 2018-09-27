@@ -1,10 +1,8 @@
-import React from "react"
-import { compose, withProps, withStateHandlers } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
-import './App.css'
-import './powered-by-foursquare-blue.png'
-
-
+import React from "react";
+import { compose, withProps, withStateHandlers } from "recompose";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
+import './App.css';
+import './powered-by-foursquare-blue.png';
 
 const MyMapComponent = compose(
     //Lines 12-17 created with assistance from code example here https://github.com/tomchentw/react-google-maps/issues/753
@@ -37,18 +35,15 @@ const MyMapComponent = compose(
                         animation={2} //https://stackoverflow.com/questions/45887099/react-google-maps-marker-animation
                         position={{lat: location.venue.location.lat, lng: location.venue.location.lng}}
                         onClick={() => props.onToggleOpen(location.venue.id)}>
-                    {/*{props.isOpen &&*/}
                     <InfoWindow onCloseClick={props.onToggleOpen}>
                         <div>
                             <div className='location-title'>{location.venue.name}</div>
                             <address>{location.venue.location.formattedAddress}</address>
-                            <img src='powered-by-foursquare-blue.png' alt='Powered By FourSquare'/>
                             <a href={`https://foursquare.com/v/${location.venue.id}?ref=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI`}>
-
+                                <img src={'./powered-by-foursquare-blue.png'} alt='Powered By Foursquare'/>
                             </a>
                         </div>
                     </InfoWindow>
-                    {/*}*/}
                 </Marker>))
             : props.locations.map(location => (
                 <Marker key={location.venue.id}
@@ -60,7 +55,7 @@ const MyMapComponent = compose(
                             <div className='location-title'>{location.venue.name}</div>
                             <address>{location.venue.location.formattedAddress}</address>
                             <a href={`https://foursquare.com/v/${location.venue.id}?ref=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI`}>
-                                <img src='powered-by-foursquare-blue.png' alt='Powered By FourSquare'/>
+                                <img src={require ('./powered-by-foursquare-blue.png')} alt='Powered By Foursquare'/>
                             </a>
                         </div>
                     </InfoWindow>}
@@ -72,7 +67,6 @@ const MyMapComponent = compose(
 class Map extends React.PureComponent {
 
     render() {
-        //let locations = this.props.locations;
         let mapCenter = this.props.mapCenter;
         let filteredLocations = this.props.filteredLocations;
         let selectedLocation = this.props.selectedLocation;

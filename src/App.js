@@ -11,6 +11,7 @@ class App extends Component {
         selectedLocation: '',
         mapCenter: {lat: 36.8007, lng: -121.9473}
     }
+
     componentDidMount () {
         fetch('https://api.foursquare.com/v2/venues/explore?client_id=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI&client_secret=IMSCQAMPN2GCESSZVPSOO42Q0EL0UKIZ35KCS0N3D35U5IL3&v=20180323&limit=8&ll=36.8007,-121.9473&query=whale watch')
             .then(res => res.json())
@@ -39,6 +40,7 @@ class App extends Component {
 
         }
     }
+
     showInfo = (event, name) => {
         let info = this.state.filteredLocations.find(location => location.venue.name === name);
         this.setState({selectedLocation: info.venue.name });
@@ -47,7 +49,6 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                {/*Header Component*/}
                 <header className="App-header">
                     <a href="#selectCity" className="skip-to">Skip to Select a City</a>
                     <h1>Whale Watching in Monterey Bay</h1>
@@ -71,7 +72,6 @@ class App extends Component {
                                     <option  value='Santa Cruz'>Santa Cruz</option>
                                 </select>
                         </div>
-                        {/*Listview Component*/}
                         <ul>
                             {this.state.filteredLocations.map((location) =>
                                 <li key = {location.venue.id} aria-label={location.venue.name} tabIndex='0'
@@ -79,7 +79,7 @@ class App extends Component {
                                     <h4> {location.venue.name}</h4></li>
                             )}
                         </ul>
-                        <img src='powered-by-foursquare-blue.png' alt='Powered By FourSquare'/>
+                        <img src={'./powered-by-foursquare-blue.png'} alt='Powered By FourSquare'/>
                     </div>
                     <div className='map' role="application" aria-label='map'>
                         <Map
