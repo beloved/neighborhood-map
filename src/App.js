@@ -18,7 +18,7 @@ class App extends Component {
                 this.setState({locations: data.response.groups[0].items});
                 this.setState({filteredLocations: data.response.groups[0].items});
             })
-            .catch(err => console.log(err));
+            .catch(err => alert(`ooops, try again later ${err}`));
     }
 
     filterLocation = (e)  => {
@@ -49,10 +49,11 @@ class App extends Component {
             <div className="App">
                 {/*Header Component*/}
                 <header className="App-header">
+                    <a href="#selectCity" className="skip-to">Skip to Select a City</a>
                     <h1>Whale Watching in Monterey Bay</h1>
                 </header>
                 <div className='mobile'>
-                    <div className='select-city'>
+                    <div id="selectCity" className='select-city'>
                         <select onChange={event => this.showInfo (event, event.target.value)}>
                             {this.state.filteredLocations.map((location) =>
                                 <option value={location.venue.name} key = {location.venue.id}> {location.venue.name}</option>
@@ -62,7 +63,7 @@ class App extends Component {
                 </div>
                 <div className='main-content'>
                     <div className='listView'>
-                        <div className='select-city'>
+                        <div id="selectCity" tabIndex='-1' className='select-city'>
                                 <select onChange={event => this.filterLocation(event.target.value)}>
                                     <option value='All' >All Cities</option>
                                     <option  value='Monterey'>Monterey</option>
@@ -73,14 +74,14 @@ class App extends Component {
                         {/*Listview Component*/}
                         <ul>
                             {this.state.filteredLocations.map((location) =>
-                                <li key = {location.venue.id}
+                                <li key = {location.venue.id} aria-label={location.venue.name} tabIndex='0'
                                     onClick = {event => this.showInfo (event, location.venue.name)}>
                                     <h4> {location.venue.name}</h4></li>
                             )}
                         </ul>
                         <img src='powered-by-foursquare-blue.png' alt='Powered By FourSquare'/>
                     </div>
-                    <div className='map'>
+                    <div className='map' role="application" aria-label='map'>
                         <Map
                             mapCenter= {this.state.mapCenter}
                             locations = {this.state.locations}

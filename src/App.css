@@ -36,9 +36,17 @@ ul {
   display: flex;
   flex-flow: row;
   justify-content: stretch;
-  /*align-items: stretch;*/
   min-height: 100vh;
   width: 100%;
+}
+.skip-to {
+  position: absolute;
+  top: -40px;
+  left: 0;
+}
+
+.skip-to:focus {
+  top: 0;
 }
 .select-city {
   width: 100%;
