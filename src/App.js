@@ -19,7 +19,7 @@ class App extends Component {
                 this.setState({locations: data.response.groups[0].items});
                 this.setState({filteredLocations: data.response.groups[0].items});
             })
-            .catch(err => alert(`ooops, try again later ${err}`));
+            .catch(err => alert(`Ooops, try again later,  ${err}`));
     }
 
     filterLocation = (e)  => {
@@ -79,7 +79,7 @@ class App extends Component {
                                     <h4> {location.venue.name}</h4></li>
                             )}
                         </ul>
-                        <img src={'./powered-by-foursquare-blue.png'} alt='Powered By FourSquare'/>
+                        <img src={'./powered-by-foursquare-blue.png'} alt='Powered By FourSquare' width={'150px'}/>
                     </div>
                     <div className='map' role="application" aria-label='map'>
                         <Map

@@ -40,7 +40,7 @@ const MyMapComponent = compose(
                             <div className='location-title'>{location.venue.name}</div>
                             <address>{location.venue.location.formattedAddress}</address>
                             <a href={`https://foursquare.com/v/${location.venue.id}?ref=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI`}>
-                                <img src={'./powered-by-foursquare-blue.png'} alt='Powered By Foursquare'/>
+                                <img src={'./powered-by-foursquare-blue.png'} alt='Powered By Foursquare' width={'150px'}/>
                             </a>
                         </div>
                     </InfoWindow>
@@ -55,7 +55,7 @@ const MyMapComponent = compose(
                             <div className='location-title'>{location.venue.name}</div>
                             <address>{location.venue.location.formattedAddress}</address>
                             <a href={`https://foursquare.com/v/${location.venue.id}?ref=0TTQXCPFZZ2VVFJ3RLVVNM4E5K5WSY0GQX2O52CFDRMQ0PNI`}>
-                                <img src={require ('./powered-by-foursquare-blue.png')} alt='Powered By Foursquare'/>
+                                <img src={'./powered-by-foursquare-blue.png'} alt='Powered By Foursquare' width={'150px'}/>
                             </a>
                         </div>
                     </InfoWindow>}
