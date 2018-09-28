@@ -21,7 +21,7 @@ class App extends Component {
             })
             .catch(err => alert(`Ooops, try again later,  ${err}`));
     }
-
+    
     filterLocation = (e)  => {
         this.setState({selectedLocation: '' });
         if (e === 'All') {
