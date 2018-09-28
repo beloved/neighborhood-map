@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Map from "./Map";
 import './App.css';
 import './powered-by-foursquare-blue.png';
-import HandleErrors from "./HandleErrors";
 
 class App extends Component {
 
@@ -47,8 +46,6 @@ class App extends Component {
         this.setState({selectedLocation: info.venue.name });
     }
 
-    // mapError = () => alert(`Google maps is loading, click okay and try again.`);
-
     render() {
         return (
             <div className="App">
@@ -91,7 +88,6 @@ class App extends Component {
                                 locations = {this.state.locations}
                                 filteredLocations = {this.state.filteredLocations}
                                 selectedLocation = {this.state.selectedLocation}
-                                // mapError = {this.mapError}
                             />
 
                     </div>
