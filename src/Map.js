@@ -3,6 +3,7 @@ import { compose, withProps, withStateHandlers } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import './App.css';
 import './powered-by-foursquare-blue.png';
+import HandleErrors from "./HandleErrors";
 
 const MyMapComponent = compose(
     //Lines 12-17 created with assistance from code example here https://github.com/tomchentw/react-google-maps/issues/753
@@ -16,7 +17,7 @@ const MyMapComponent = compose(
         })
     }),
     withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places%26callback=googleSuccess\" onerror=\"mapError",
+        googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div style={{ height: `100%` }} />,
         mapElement: <div style={{ height: `100%` }} />,
@@ -71,12 +72,13 @@ class Map extends React.PureComponent {
         let filteredLocations = this.props.filteredLocations;
         let selectedLocation = this.props.selectedLocation;
         return (
+            <HandleErrors>
             <MyMapComponent
                 mapCenter = {mapCenter}
                 locations = {filteredLocations}
                 selectedLocation = {selectedLocation}
-                mapError = {this.props.mapError()}
             />
+            </HandleErrors>
         )
     }
 }

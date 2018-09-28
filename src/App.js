@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Map from "./Map";
 import './App.css';
 import './powered-by-foursquare-blue.png';
+import HandleErrors from "./HandleErrors";
 
 class App extends Component {
 
@@ -21,7 +22,7 @@ class App extends Component {
             })
             .catch(err => alert(`Ooops, try again later,  ${err}`));
     }
-    
+
     filterLocation = (e)  => {
         this.setState({selectedLocation: '' });
         if (e === 'All') {
@@ -46,7 +47,7 @@ class App extends Component {
         this.setState({selectedLocation: info.venue.name });
     }
 
-    mapError = () => alert(`Google maps is loading, click okay and try again.`);
+    // mapError = () => alert(`Google maps is loading, click okay and try again.`);
 
     render() {
         return (
@@ -84,13 +85,15 @@ class App extends Component {
                         <img src={'./powered-by-foursquare-blue.png'} alt='Powered By FourSquare' width={'150px'}/>
                     </div>
                     <div className='map' role="application" aria-label='map'>
-                        <Map
-                            mapCenter= {this.state.mapCenter}
-                            locations = {this.state.locations}
-                            filteredLocations = {this.state.filteredLocations}
-                            selectedLocation = {this.state.selectedLocation}
-                            mapError = {this.mapError}
-                        />
+
+                            <Map
+                                mapCenter= {this.state.mapCenter}
+                                locations = {this.state.locations}
+                                filteredLocations = {this.state.filteredLocations}
+                                selectedLocation = {this.state.selectedLocation}
+                                // mapError = {this.mapError}
+                            />
+
                     </div>
                 </div>
                 <footer >
